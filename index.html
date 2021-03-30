@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h2>ASAC</h2>
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact</li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form id="form">
+            <label for="autherName">Auther Name</label>
+            <input type="text" name='autherName'>
+            <label for="articleTitle">Article Title</label>
+            <input type="text" name="articleTitle">
+            <label for="subject"></label>
+            <select name="subject" id="subject">
+                <option value="Coding">Coding</option>
+                <option value="3D printing">3D printing</option>
+                <option value="Cyber security">Cyber security</option>
+                <option value="AI">AI</option>
+            </select>
+            <label for="content"> content</label>
+            <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            <label for="day"> Day</label>
+            <input type="number" name="day">
+            <label for="month"> month</label>
+            <input type="number" name="month">
+            <label for="year"> Year</label>
+            <input type="number" name="year">
+            <label for="submit"></label>
+            <input type="submit">
+        </form>
+        <article id="article"></article>
+    </main>
+    <footer>
+        &copy; All Rights Reserved ASAC 2021
+    </footer>
+    <script src='./js/app.js'></script>
+</body>
+</html>
+
