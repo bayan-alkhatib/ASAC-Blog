@@ -2,17 +2,18 @@
 
 let form=document.getElementById('form');
 let article=document.getElementById('article');
+let totalArticles;
 
-function Articledata(autherName,articleTitle,subject,content,day,month,year){
-  this.autherName=autherName;
+function Articledata(authorName,articleTitle,subject,content,day,month,year){
+  this.authorName=authorName;
   this.articleTitle=articleTitle;
   this.subject=subject;
   this.content=content;
   this.day=day;
   this.month=month;
   this.year=year;
-  this.likes=0;
   this.id=0;
+  this.likes=0;
   Articledata.articlesArr.push(this);
 }
 
@@ -30,37 +31,49 @@ form.addEventListener('submit',articleForm);
 
 function articleForm(event){
   event.preventDefault();
-  for(let i=0;i<=Articledata.articlesArr.length;i++){
-    new Articledata(event.target.autherName.value,event.target.articleTitle.value,event.target.subject.value,event.target.content.value,event.target.day.value,event.target.month.value,event.target.year.value);
-    Articledata.articlesArr[i].id++;
-    Articledata.articlesArr[i].randomlikes();
-    console.log(Articledata.articlesArr);
-    articleFun(i);
-  }
+  let newArticle=new Articledata(event.target.authorName.value,event.target.articleTitle.value,event.target.subject.value,event.target.content.value,event.target.day.value,event.target.month.value,event.target.year.value);
+  newArticle.id=Articledata.articlesArr.length;
+  newArticle.randomlikes();
+  totalArticles=Articledata.articlesArr[Articledata.articlesArr.length-1].id;
   localStorage.setItem('articlesData',JSON.stringify( Articledata.articlesArr));
+  displayArticles();
 }
-// articleForm();
-function articleFun(i){
-  form.innerHTML=' ';
-  let articletitle=document.createElement('h2');
-  article.appendChild(articletitle);
-  articletitle.textContent=Articledata.articlesArr[i].articleTitle;
-  let img=document.createElement('img');
-  img.src='./img/asac_ltuc.jpg';
-  article.appendChild(img);
-  let autherName=document.createElement('h2');
-  article.appendChild(autherName);
-  autherName.textContent=Articledata.articlesArr[i].autherName;
-  let date=document.createElement('h2');
-  article.appendChild(date);
-  autherName.textContent='Date:'+ Articledata.articlesArr[i].day+'-'+Articledata.articlesArr[i].month+'-'+Articledata.articlesArr[i].year;
-  let likes=document.createElement('h2');
-  article.appendChild(likes);
-  likes.textContent=Articledata.articlesArr[i].likes;
-  let subject=document.createElement('h2');
-  article.appendChild(subject);
-  subject.textContent=Articledata.articlesArr[i].subject;
-  let content=document.createElement('p');
-  article.appendChild(content);
-  content.textContent=Articledata.articlesArr[i].content;
+
+function displayArticles(){
+  article.innerHTML=' ';
+  for(let i=0;i<Articledata.articlesArr.length;i++){
+    let list=document.createElement('ul');
+    article.appendChild(list);
+    let total=document.createElement('li');
+    list.appendChild(total);
+    total.textContent='Total Articles: '+totalArticles;
+    let articleId=document.createElement('li');
+    list.appendChild(articleId);
+    articleId.textContent='Article ID: '+ Articledata.articlesArr[i].id;
+    let articletitle=document.createElement('li');
+    list.appendChild(articletitle);
+    articletitle.textContent=Articledata.articlesArr[i].articleTitle;
+    let image=document.createElement('li');
+    list.appendChild(image);
+    let img=document.createElement('img');
+    image.appendChild(img);
+    img.src='./img/asac_ltuc.jpg';
+    let authorName=document.createElement('li');
+    list.appendChild(authorName);
+    authorName.textContent='Author: '+Articledata.articlesArr[i].authorName;
+    let date=document.createElement('li');
+    list.appendChild(date);
+    date.textContent='Date:'+ Articledata.articlesArr[i].day+'-'+Articledata.articlesArr[i].month+'-'+Articledata.articlesArr[i].year;
+    let likes=document.createElement('li');
+    list.appendChild(likes);
+    likes.textContent=Articledata.articlesArr[i].likes+' likes';
+    likes.id='likes';
+    let subject=document.createElement('li');
+    list.appendChild(subject);
+    subject.textContent=Articledata.articlesArr[i].subject;
+    subject.id='subject';
+    let content=document.createElement('li');
+    list.appendChild(content);
+    content.innerHTML='<p>'+Articledata.articlesArr[i].content+'</p>';
+  }
 }
